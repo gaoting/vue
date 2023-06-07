@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
+#  检查js代码规范的脚本
+
+# git diff 获取缓存文件，grep 过滤js文件
 files_to_lint=$(git diff --cached --name-only --diff-filter=ACM | grep '\.js$')
 
+# if 和 fi 是shell脚本的 开始和结束
 if [ -n "$files_to_lint" ]; then
   NODE_ENV=production eslint --quiet $files_to_lint
 fi

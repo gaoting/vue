@@ -1,3 +1,5 @@
+// 该文件是一个 Node.js 脚本，可以执行多种操作，包括创建一个新版本，生成日志，发布到 NPM，以及在 GitHub 上打标签和推送提交。
+
 const args = require('minimist')(process.argv.slice(2))
 const fs = require('fs')
 const path = require('path')
@@ -13,6 +15,8 @@ const preId =
 const isDryRun = args.dry
 const skipTests = args.skipTests
 const skipBuild = args.skipBuild
+
+// 获取指定目录下的文件绝对路径，返回字符串数组，再过滤提取 .vue
 const packages = fs
   .readdirSync(path.resolve(__dirname, '../packages'))
   .filter(p => !p.endsWith('.ts') && !p.startsWith('.'))
@@ -25,6 +29,13 @@ const versionIncrements = [
   ...(preId ? ['prepatch', 'preminor', 'premajor', 'prerelease'] : [])
 ]
 
+/**
+ * - 函数 inc(i) 用于基于当前版本号增加版本号，并返回增加后的版本号。
+- 函数 run(bin, args, opts) 用于执行外部命令 bin，传入参数 args 和选项 opts。
+- 函数 dryRun(bin, args, opts) 用于打印执行外部命令的信息，但不会真正执行命令。
+- 函数 runIfNotDry 根据是否为干运行模式来选择执行 run 或 dryRun。
+- 函数 step(msg) 用于打印一条带有蓝色前缀的信息。
+ */
 const inc = i => semver.inc(currentVersion, i, preId)
 const run = (bin, args, opts = {}) =>
   execa(bin, args, { stdio: 'inherit', ...opts })

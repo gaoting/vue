@@ -1,3 +1,5 @@
+// 自动生成发布说明文档
+
 const version = process.argv[2] || process.env.VERSION
 const cc = require('conventional-changelog')
 const file = `./RELEASE_NOTE${version ? `_${version}` : ``}.md`

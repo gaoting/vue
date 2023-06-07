@@ -16,6 +16,15 @@ const banner =
   ' */'
 
 const aliases = require('./alias')
+/**
+ * 这段代码定义了一个名为 'resolve' 的函数，它接受一个名为 'p' 的参数。
+
+该函数首先将 'p' 参数按 '/' 字符分割，并将结果数组的第一个元素作为 'base' 变量。
+
+然后，它检查 'base' 变量是否存在于名为 'aliases' 的对象中。如果存在，则使用 'path.resolve' 方法将与 'base' 键相关联的值与 'base' 元素后的路径剩余部分组合起来解析路径。
+
+如果在 'aliases' 对象中未找到 'base' 变量，则使用 'path.resolve' 方法将当前目录路径与父目录路径和 'p' 参数组合起来解析路径。
+ */
 const resolve = p => {
   const base = p.split('/')[0]
   if (aliases[base]) {

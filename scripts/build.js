@@ -1,3 +1,5 @@
+// 自动构建多个代码版本，并分别压缩打包
+
 const fs = require('fs')
 const path = require('path')
 const zlib = require('zlib')
