@@ -34,6 +34,7 @@ export function computed<T>(
   options: WritableComputedOptions<T>,
   debugOptions?: DebuggerOptions
 ): WritableComputedRef<T>
+
 export function computed<T>(
   getterOrOptions: ComputedGetter<T> | WritableComputedOptions<T>,
   debugOptions?: DebuggerOptions
@@ -69,7 +70,9 @@ export function computed<T>(
     effect: watcher,
     get value() {
       if (watcher) {
+        // dirty：判断对象是否需要重新求值
         if (watcher.dirty) {
+          // 计算依赖项，更新value
           watcher.evaluate()
         }
         if (Dep.target) {
@@ -93,6 +96,9 @@ export function computed<T>(
     }
   } as any
 
+  /**
+   * def()： 定义对象属性。  三个参数： obj：定义的对象，key：属性name，value：属性值
+   */
   def(ref, RefFlag, true)
   def(ref, ReactiveFlags.IS_READONLY, onlyGetter)
 

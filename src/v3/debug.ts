@@ -5,6 +5,7 @@ export interface DebuggerOptions {
   onTrigger?: (event: DebuggerEvent) => void
 }
 
+// 扩展 DebuggerEventExtraInfo
 export type DebuggerEvent = {
   /**
    * @internal
